@@ -22,3 +22,19 @@ function mouseMove(e){
 function mouseUp(e){
 document.removeEventListener('mousemove', mouseMove)
 }
+
+window.addEventListener('keydown', (e) => {
+    // Only allow printable characters (letters, numbers, space, etc.)
+    if (
+        e.key.length === 1 && 
+        !e.ctrlKey && 
+        !e.metaKey && 
+        !e.altKey
+    ) {
+        card.textContent += e.key;
+    } else if (e.key === 'Backspace') {
+        card.textContent = card.textContent.slice(0, -1);
+    } else if (e.key === 'Enter') {
+        card.textContent += '\n';
+    }
+});
