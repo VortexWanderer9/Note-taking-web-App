@@ -11,8 +11,8 @@ body{
     height: 100vh;
 }
 .card{
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
     background-color: #AFDA9F;
     border-radius: 10px;
     cursor: pointer;
@@ -30,6 +30,7 @@ body{
     font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
 }
 .break{
     width: 100%;
