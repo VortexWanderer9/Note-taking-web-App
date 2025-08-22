@@ -17,4 +17,13 @@ body{
     border-radius: 4px;
     cursor: pointer;
     position: fixed;
+    padding: 20px;
+}
+
+.text{
+    color: #292a30;
+    font-size: 1.4rem;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 1rem;
+    border-bottom: 1px solid #292a3063;
 }
