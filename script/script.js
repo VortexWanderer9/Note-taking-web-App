@@ -3,22 +3,32 @@ let draggedCard = null;
 
 const cardsContainer = document.querySelector('.cards');
 
-cardsContainer.addEventListener('mousedown', function(e) {
+function getClientX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+}
+function getClientY(e) {
+    return e.touches ? e.touches[0].clientY : e.clientY;
+}
+
+function dragStart(e) {
     const card = e.target.closest('.card');
     if (!card) return;
     draggedCard = card;
-    startX = e.clientX;
-    startY = e.clientY;
+    startX = getClientX(e);
+    startY = getClientY(e);
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', mouseUp);
-});
+    document.addEventListener('touchmove', mouseMove, {passive: false});
+    document.addEventListener('touchend', mouseUp);
+}
 
 function mouseMove(e) {
     if (!draggedCard) return;
-    newX = startX - e.clientX;
-    newY = startY - e.clientY;
-    startX = e.clientX;
-    startY = e.clientY;
+    e.preventDefault && e.preventDefault();
+    newX = startX - getClientX(e);
+    newY = startY - getClientY(e);
+    startX = getClientX(e);
+    startY = getClientY(e);
     draggedCard.style.position = 'absolute';
     draggedCard.style.top = (draggedCard.offsetTop - newY) + 'px';
     draggedCard.style.left = (draggedCard.offsetLeft - newX) + 'px';
@@ -27,8 +37,13 @@ function mouseMove(e) {
 function mouseUp(e) {
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', mouseUp);
+    document.removeEventListener('touchmove', mouseMove);
+    document.removeEventListener('touchend', mouseUp);
     draggedCard = null;
 }
+
+cardsContainer.addEventListener('mousedown', dragStart);
+cardsContainer.addEventListener('touchstart', dragStart, {passive: false});
 
 const addButton = document.querySelector('.add');
 const cont = `<div class="card" style="position:absolute; top:0; left:0;">
