@@ -114,11 +114,28 @@ body{
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid #292a30;
-   
+    transition: transform 0.3s ease;
+   &:hover {
+       transform: scale(1.1);
+   }
 }
 .add svg{
     height: 40px;
     width: 40px;
     cursor: pointer;
     margin-left: 20px;
+}
+@media screen and (max-width: 768px) {
+    .colors {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .color {
+        height: 30px;
+        width: 30px;
+    }
+    .add svg {
+        height: 30px;
+        width: 30px;
+    }
 }
