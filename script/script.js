@@ -1,3 +1,7 @@
+import { selectedColor } from './color.js';
+
+
+
 let newX = 0, newY = 0, startX = 0, startY = 0;
 let draggedCard = null;
 
@@ -51,7 +55,13 @@ const cont = `<div class="card" style="position:absolute; top:0; left:0;">
     <div class="break"></div>
     <textarea class="textarea" placeholder="Write your note here...">Write your note here...</textarea>
 </div>`;
-
 addButton.addEventListener('click', () => {
     cardsContainer.insertAdjacentHTML('beforeend', cont);
+    if(selectedColor){
+    const backgroundColor = selectedColor.getAttribute('color-data');
+    console.log(backgroundColor);
+    document.querySelector('.container').style.backgroundColor = backgroundColor;
+}
+
 });
+

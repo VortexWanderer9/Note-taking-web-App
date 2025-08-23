@@ -1,7 +1,7 @@
 const color = document.querySelectorAll(".color")
 
 
-let selectedColor = null;
+export let selectedColor = null;
 color.forEach((item) =>{
     const color = item.getAttribute('color-data')
     item.style.backgroundColor = color;
@@ -20,3 +20,4 @@ color.forEach((item) =>{
 
     });
 });
+
