@@ -1,40 +1,42 @@
 let newX = 0, newY = 0, startX = 0, startY = 0;
-const card = document.querySelector('.card');
+let draggedCard = null;
 
-card.addEventListener('mousedown', mouseMown)
-function mouseMown(e){
-    startX = e.clientX
-    startY = e.clientY
-    document.addEventListener('mousemove', mouseMove)
-    document.addEventListener('mouseup', mouseUp)
+const cardsContainer = document.querySelector('.cards');
+
+cardsContainer.addEventListener('mousedown', function(e) {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    draggedCard = card;
+    startX = e.clientX;
+    startY = e.clientY;
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
+});
+
+function mouseMove(e) {
+    if (!draggedCard) return;
+    newX = startX - e.clientX;
+    newY = startY - e.clientY;
+    startX = e.clientX;
+    startY = e.clientY;
+    draggedCard.style.position = 'absolute';
+    draggedCard.style.top = (draggedCard.offsetTop - newY) + 'px';
+    draggedCard.style.left = (draggedCard.offsetLeft - newX) + 'px';
 }
 
-function mouseMove(e){
-    newX = startX - e.clientX
-    newY = startY - e.clientY
-
-    startX = e.clientX
-    startY = e.clientY
-    card.style.top = (card.offsetTop - newY) + 'px'
-    card.style.left =  (card.offsetLeft - newX) + 'px'
+function mouseUp(e) {
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mouseup', mouseUp);
+    draggedCard = null;
 }
 
-function mouseUp(e){
-document.removeEventListener('mousemove', mouseMove)
-}
+const addButton = document.querySelector('.add');
+const cont = `<div class="card" style="position:absolute; top:0; left:0;">
+    <textarea name="title" id="title" class="text" placeholder="Note Title">Note Title</textarea>
+    <div class="break"></div>
+    <textarea class="textarea" placeholder="Write your note here...">Write your note here...</textarea>
+</div>`;
 
-// window.addEventListener('keydown', (e) => {
-//     // Only allow printable characters (letters, numbers, space, etc.)
-//     if (
-//         e.key.length === 1 && 
-//         !e.ctrlKey && 
-//         !e.metaKey && 
-//         !e.altKey
-//     ) {
-//         card.textContent += e.key;
-//     } else if (e.key === 'Backspace') {
-//         card.textContent = card.textContent.slice(0, -1);
-//     } else if (e.key === 'Enter') {
-//         card.textContent += '\n';
-//     }
-// });
+addButton.addEventListener('click', () => {
+    cardsContainer.insertAdjacentHTML('beforeend', cont);
+});
