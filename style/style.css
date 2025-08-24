@@ -171,3 +171,15 @@ body{
     cursor: pointer;
 }
 
+.delete{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+     transition: transform 0.3s ease;
+}
+
+.delete:hover{
+    transform: scale(1.1);
+   
+}
