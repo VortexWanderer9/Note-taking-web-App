@@ -50,18 +50,18 @@ cardsContainer.addEventListener('mousedown', dragStart);
 cardsContainer.addEventListener('touchstart', dragStart, {passive: false});
 
 const addButton = document.querySelector('.add');
-const cont = `<div class="card" style="position:absolute; top:0; left:0;">
+const cont = `
     <textarea name="title" id="title" class="text" placeholder="Note Title">Note Title</textarea>
     <div class="break"></div>
-    <textarea class="textarea" placeholder="Write your note here...">Write your note here...</textarea>
-</div>`;
+    <textarea class="textarea" placeholder="Write your note here...">Write your note here...</textarea>`;
 addButton.addEventListener('click', () => {
-    cardsContainer.insertAdjacentHTML('beforeend', cont);
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = cont;
+    cardsContainer.appendChild(div);
     if(selectedColor){
     const backgroundColor = selectedColor.getAttribute('color-data');
-    console.log(backgroundColor);
-    document.querySelector('.container').style.backgroundColor = backgroundColor;
+    div.style.backgroundColor = backgroundColor;
 }
-
 });
 
